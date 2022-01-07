@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
     {
         if (posJoystickInput == Vector2.zero) return;
         Vector3 translation = new Vector3(posJoystickInput.x, 0, posJoystickInput.y).normalized * _movementSpeed * Time.deltaTime;
-        //transform.Translate(translation, Space.World);
         rb.AddForce(translation, movementForceMode);
     }
 
@@ -76,10 +75,7 @@ public class PlayerController : MonoBehaviour
         if(posJoystickInput != Vector2.zero)
         {
             if (rb.velocity.magnitude > _maxSpeed)
-            {
-                float mult = _maxSpeed / rb.velocity.magnitude;
-                rb.velocity = rb.velocity * mult;
-            }
+                rb.velocity = rb.velocity.normalized * _maxSpeed;
         }
         else
         {
